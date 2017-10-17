@@ -1,0 +1,11 @@
+<div>
+  <form action="">
+    <div class="form-group">
+      <input *ngIf="editUser" type="input" class="form-control" name="usuario" required placeholder="usuario" [(ngModel)]="user.usuario">
+    </div>
+    <h3 *ngIf="!editUser" (click)="onUserClick()">{{user.usuario}}</h3>
+    <div class="form-group">
+      <input type="password" class="form-control" name="password" required placeholder="usuario" [(ngModel)]="user.password">
+    </div>
+  </form>
+</div>

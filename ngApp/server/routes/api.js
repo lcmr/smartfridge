@@ -76,4 +76,15 @@ router.put('/usuario/:id', function(req, res){
     );
 });
 
+router.delete('/usuario/:id',function(req, res) {
+   console.log('Deleting User...');
+   Usuario.findByIdAndRemove(req.params.id,function (err, deletedUser) {
+      if(err){
+        res.send('Error deleting user');
+      } else{
+        res.json(deletedUser);
+      }
+   });
+});
+
 module.exports = router;

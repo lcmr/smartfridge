@@ -21,7 +21,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 
-const port = 8080;
+const port = process.env.PORT || 8080;;
 
 const app = express();
 

@@ -2,15 +2,80 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Usuario = require('../models/users');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('../config/database');
+const TokenGenerator = require('../config/tokengenerator');
 
 
 
-const db = 'mongodb://AC2G2:1234@ds117251.mlab.com:17251/smart_fridge';
-mongoose.Promise = global.Promise;
-mongoose.connect(db,{ useMongoClient: true },function(err){
-    if(err){
-        console.error("Error "+ err);
-    }
+//Administracion de Usuarios
+
+//-- Crear usuario
+router.post('/usuario',function(req,res){
+    console.log('Inserting User');
+    
+    var newUser = new Usuario();
+    newUser.usuario = req.body.usuario;
+    newUser.password = req.body.password;
+    console.log(req.body);
+
+    Usuario.addUser(newUser, (err, user) => {
+        if(err){
+            console.log('Error saving user');
+            res.json({success: false, msg: 'Error al registrar el usuario'});
+        }else{
+            res.json({success: true, msg: 'Usuario registrado exitosamente'});
+        }
+    });
+
+});
+
+// Autenticar Usuario
+
+router.post('/autenticar',function(req, res, next) {
+    const username = req.body.usuario;
+    const password = req.body.password;
+
+    Usuario.getUserByUsername(username, (err, user) => {
+        if(err) throw err;
+        if(!user){
+            return res.json({success: false, msg: 'Usuario no encontrado'});
+        }
+
+        Usuario.comparePassword(password, user.password, (err, isMatch) => {
+            if(err) throw err;
+
+            if(isMatch){
+                var _user = {
+                    _id: user._id,
+                    usuario: user.usuario,
+                    password: user.password,
+                    _v: user._v
+                };
+
+                const tokenGenerator = new TokenGenerator(config.secret, 'pubKey', { algorithm: 'HS256', keyid: '1', noTimestamp: false, expiresIn: '1d', notBefore: '2s' })
+                token = tokenGenerator.sign(_user, { audience: 'myaud', issuer: 'myissuer', jwtid: '1', subject: 'user' })
+
+                res.json({
+                    success: true, 
+                    token: 'JWT ' + token,
+                    usuario: {
+                        id: user._id,
+                        usuario: user.usuario
+                    }
+                });
+            }else{
+                res.json({success: false, msg: 'La contraseña no coincide'});
+            }
+        });
+    });
+});
+
+//perfil
+router.get('/perfil', passport.authenticate('jwt',{session: false}), (req, res, next) => {
+    res.json({user: req.user});
 });
 
 router.get('/usuarios', function(req, res){
@@ -37,21 +102,6 @@ router.get('/usuarios/:id', function(req, res){
     });
 });
 
-router.post('/usuario',function(req,res){
-    console.log('Inserting User');
-    
-    const crypto = require('crypto');
-    var newUser = new Usuario();
-    newUser.usuario = req.body.usuario;
-    newUser.password = crypto.createHash('md5').update(req.body.password).digest('hex');
-    newUser.save(function(err, insertedUser){
-        if(err){
-            console.log('Error saving user');
-        }else{
-            res.json(insertedUser);
-        }
-    });
-});
 
 router.put('/usuario/:id', function(req, res){
     console.log('Updating User');   

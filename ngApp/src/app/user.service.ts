@@ -11,4 +11,14 @@ export class UserService {
     return this._http.get(this._getUrl)
       .map((response: Response) => response.json());
   }
+
+  validateRegister(user){
+  	if(user.usuario == undefined || user.password == undefined){
+  		return false;
+  	}else{
+  		return true;
+  	}
+  }
+
+  
 }

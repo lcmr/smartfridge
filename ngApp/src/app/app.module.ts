@@ -9,6 +9,12 @@ import { UsersComponent } from './users/users.component';
 import { UserlistComponent } from './userlist/userlist.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { HttpModule } from '@angular/http';
+import { RegistrarComponent } from './registrar/registrar.component';
+import { LoginComponent } from './login/login.component';
+
+import { UserService } from './user.service';
+import { AuthService } from './auth.service';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 @NgModule({
   declarations: [
@@ -16,15 +22,18 @@ import { HttpModule } from '@angular/http';
     HomeComponent,
     UsersComponent,
     UserlistComponent,
-    UserdetailComponent
+    UserdetailComponent,
+    RegistrarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    FlashMessagesModule
   ],
-  providers: [],
+  providers: [UserService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

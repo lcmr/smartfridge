@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
   	private flashMessagesService: FlashMessagesService,
-	private authService: AuthService,
-	private router: Router
+  	private authService: AuthService,
+  	private router: Router
   ) { }
 
   ngOnInit() {
@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
   	this.authService.authenticateUser(user).subscribe(data => {
   		if(data.success){
   			this.authService.storeUserData(data.token, data.usuario);
-			this.flashMessagesService.show('Ahora estas logeado', { cssClass: 'alert-success', timeout: 3000});	
-			this.router.navigate(['home']);
+  			this.flashMessagesService.show('Ahora estas logeado', { cssClass: 'alert-success', timeout: 3000});	
+  			this.router.navigate(['dashboard']);
   		}else{
-			this.flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 3000});	
-			this.router.navigate(['login']);
+  			this.flashMessagesService.show(data.msg, { cssClass: 'alert-danger', timeout: 3000});	
+  			this.router.navigate(['login']);
   		}
   	});
 

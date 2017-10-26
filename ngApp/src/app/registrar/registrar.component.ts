@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 export class RegistrarComponent implements OnInit {
 	usuario: String;
 	password: String;
+	email: String;
+	nombre: String;
 
 	constructor(
 		private userService: UserService, 
@@ -26,7 +28,9 @@ export class RegistrarComponent implements OnInit {
 	onRegisterSubmit(){
 		const user = {
 			usuario: this.usuario,
-			password: this.password
+			password: this.password,
+			email: this.email,
+			nombre: this.nombre
 		}
 
 		//validar campos

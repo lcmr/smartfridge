@@ -13,9 +13,21 @@
       <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a routerLink="/login" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">Login</a></li>
-      <li><a routerLink="/registrar" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">Registrar</a></li>
-      <li><a (click)="onLogOut()" href="#">Logout</a></li>
+      <li *ngIf="!authService.loggedIn()" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">
+        <a routerLink="/login" >Login</a>
+      </li>
+      <li *ngIf="!authService.loggedIn()" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">
+        <a routerLink="/registrar" >Registrar</a>
+      </li>
+
+      <li *ngIf="authService.loggedIn()" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">
+        <a routerLink="/perfil">Perfil</a>
+      </li>
+      <li *ngIf="authService.loggedIn()" routerLinkActiveOptions="{exact:true}" routerLinkActive="active">
+        <a routerLink="/dashboard" >Dashboard</a>
+      </li>
+
+      <li *ngIf="authService.loggedIn()"><a (click)="onLogOut()" href="#">Logout</a></li>
     </ul>
   </div>
 </nav>

@@ -19,7 +19,8 @@ router.post('/usuario',function(req,res){
     var newUser = new Usuario();
     newUser.usuario = req.body.usuario;
     newUser.password = req.body.password;
-    console.log(req.body);
+    newUser.email = req.body.email;
+    newUser.nombre = req.body.nombre;
 
     Usuario.addUser(newUser, (err, user) => {
         if(err){
@@ -52,6 +53,8 @@ router.post('/autenticar',function(req, res, next) {
                     _id: user._id,
                     usuario: user.usuario,
                     password: user.password,
+                    nombre: user.nombre,
+                    email: user.email,
                     _v: user._v
                 };
 
@@ -63,7 +66,9 @@ router.post('/autenticar',function(req, res, next) {
                     token: 'JWT ' + token,
                     usuario: {
                         id: user._id,
-                        usuario: user.usuario
+                        usuario: user.usuario,
+                        nombre: user.nombre,
+                        email: user.email
                     }
                 });
             }else{

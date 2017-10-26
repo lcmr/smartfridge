@@ -6,11 +6,27 @@ const config = require('../config/database');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    usuario: String,
-    password: String
+    usuario: { 
+        type : String,
+        required : true,
+        index: true,
+        unique: true
+    },
+    password: { 
+        type : String,
+        required : true
+    },
+    email: { 
+        type : String ,
+        required : true
+    },
+    nombre: { 
+        type: String 
+    },
+    tiendas: [{ type: Schema.Types.ObjectId, ref: 'Stores' }]
 });
 
-const Usuario = module.exports = mongoose.model('usuario',userSchema,'usuarios');
+const Usuario = module.exports = mongoose.model('user',userSchema,'users');
 
 module.exports.getUserById = function (id, callback) {
 	Usuario.findById(id, callback);	

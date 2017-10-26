@@ -1,15 +1,27 @@
 <h2 class="page-header">Registrar</h2>
 <form (submit)="onRegisterSubmit()" class="form-horizontal">
   <div class="form-group">
+    <label class="control-label col-sm-2" for="usuario">Nombre:</label>
+    <div class="col-sm-10">
+      <input type="text" [(ngModel)]="nombre" name="nombre" class="form-control" id="usuario" placeholder="Ingrese su Nombre">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="usuario">Email:</label>
+    <div class="col-sm-10">
+      <input type="email" [(ngModel)]="email" name="email" class="form-control" id="usuario" placeholder="Ingrese su Email">
+    </div>
+  </div>
+  <div class="form-group">
     <label class="control-label col-sm-2" for="usuario">Usuario:</label>
     <div class="col-sm-10">
-      <input type="text" [(ngModel)]="usuario" name="usuario" class="form-control" id="usuario" placeholder="Enter email">
+      <input type="text" [(ngModel)]="usuario" name="usuario" class="form-control" id="usuario" placeholder="Ingrese su nombre de usuario">
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-2" for="password">Contraseña:</label>
     <div class="col-sm-10"> 
-      <input type="password" [(ngModel)]="password" name="password" class="form-control" id="password" placeholder="Enter password">
+      <input type="password" [(ngModel)]="password" name="password" class="form-control" id="password" placeholder="Ingrese la Contraseña">
     </div>
   </div>
   <div class="form-group"> 

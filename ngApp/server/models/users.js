@@ -22,8 +22,7 @@ const userSchema = new Schema({
     },
     nombre: { 
         type: String 
-    },
-    tiendas: [{ type: Schema.Types.ObjectId, ref: 'Stores' }]
+    }
 });
 
 const Usuario = module.exports = mongoose.model('user',userSchema,'users');

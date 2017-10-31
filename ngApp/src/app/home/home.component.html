@@ -6,7 +6,9 @@
 		Bienvenido a la administracion de tu Smart Fridge
 	</p>
 	<div>
-		<a class="btn btn-primary" routerLink="/registrar">Registrar</a><a class="btn btn-primary" routerLink="/login">Iniciar Sesion</a>
+		<a *ngIf="!authService.loggedIn()" class="btn btn-primary" routerLink="/registrar">Registrar</a><a *ngIf="!authService.loggedIn()" class="btn btn-primary" routerLink="/login">Iniciar Sesion</a>
+		<a *ngIf="authService.loggedIn()" class="btn btn-primary" routerLink="/perfil">Ver Perfil</a><a *ngIf="authService.loggedIn()" class="btn btn-primary" routerLink="#">Ver Refrigeradoras</a>
+		
 	</div>
 </div>
 

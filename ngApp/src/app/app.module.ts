@@ -18,6 +18,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { StoresComponent } from './stores/stores.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AuthGuard } from './guards/auth.guard';
     RegistrarComponent,
     LoginComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    StoresComponent
   ],
   imports: [
     BrowserModule,

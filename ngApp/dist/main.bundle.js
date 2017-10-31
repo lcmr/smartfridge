@@ -31,12 +31,14 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__profile_profile_component__ = __webpack_require__("../../../../../src/app/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__ = __webpack_require__("../../../../../src/app/guards/auth.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__stores_stores_component__ = __webpack_require__("../../../../../src/app/stores/stores.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -53,7 +55,8 @@ var routes = [
     { path: 'registrar', component: __WEBPACK_IMPORTED_MODULE_4__registrar_registrar_component__["a" /* RegistrarComponent */] },
     { path: 'login', component: __WEBPACK_IMPORTED_MODULE_5__login_login_component__["a" /* LoginComponent */] },
     { path: 'perfil', component: __WEBPACK_IMPORTED_MODULE_7__profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_6__dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] }
+    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_6__dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
+    { path: 'tienda', component: __WEBPACK_IMPORTED_MODULE_9__stores_stores_component__["a" /* StoresComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -172,12 +175,14 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__profile_profile_component__ = __webpack_require__("../../../../../src/app/profile/profile.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__ = __webpack_require__("../../../../../src/app/guards/auth.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__stores_stores_component__ = __webpack_require__("../../../../../src/app/stores/stores.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -212,7 +217,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_10__registrar_registrar_component__["a" /* RegistrarComponent */],
             __WEBPACK_IMPORTED_MODULE_11__login_login_component__["a" /* LoginComponent */],
             __WEBPACK_IMPORTED_MODULE_15__dashboard_dashboard_component__["a" /* DashboardComponent */],
-            __WEBPACK_IMPORTED_MODULE_16__profile_profile_component__["a" /* ProfileComponent */]
+            __WEBPACK_IMPORTED_MODULE_16__profile_profile_component__["a" /* ProfileComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__stores_stores_component__["a" /* StoresComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -329,7 +335,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  dashboard works!\n</p>\n"
+module.exports = "<div class=\"jumbotron\">\n  <h1>Bienvenido a tu Dashboard</h1>\n  <p>Aqui podras administrar las tiendas que tienes asignadas y las refrigeradoras asinganas.</p>\n</div>"
 
 /***/ }),
 
@@ -436,7 +442,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbtron text-center\">\r\n\t<h1>\r\n\t\tSmart Fridge\r\n\t</h1>\r\n\t<p class=\"lead\">\r\n\t\tBienvenido a la administracion de tu Smart Fridge\r\n\t</p>\r\n\t<div>\r\n\t\t<a class=\"btn btn-primary\" routerLink=\"/registrar\">Registrar</a><a class=\"btn btn-primary\" routerLink=\"/login\">Iniciar Sesion</a>\r\n\t</div>\r\n</div>\r\n\r\n"
+module.exports = "<div class=\"jumbtron text-center\">\r\n\t<h1>\r\n\t\tSmart Fridge\r\n\t</h1>\r\n\t<p class=\"lead\">\r\n\t\tBienvenido a la administracion de tu Smart Fridge\r\n\t</p>\r\n\t<div>\r\n\t\t<a *ngIf=\"!authService.loggedIn()\" class=\"btn btn-primary\" routerLink=\"/registrar\">Registrar</a><a *ngIf=\"!authService.loggedIn()\" class=\"btn btn-primary\" routerLink=\"/login\">Iniciar Sesion</a>\r\n\t\t<a *ngIf=\"authService.loggedIn()\" class=\"btn btn-primary\" routerLink=\"/perfil\">Ver Perfil</a><a *ngIf=\"authService.loggedIn()\" class=\"btn btn-primary\" routerLink=\"#\">Ver Refrigeradoras</a>\r\n\t\t\r\n\t</div>\r\n</div>\r\n\r\n"
 
 /***/ }),
 
@@ -446,6 +452,10 @@ module.exports = "<div class=\"jumbtron text-center\">\r\n\t<h1>\r\n\t\tSmart Fr
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomeComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -456,8 +466,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(flashMessagesService, authService, router) {
+        this.flashMessagesService = flashMessagesService;
+        this.authService = authService;
+        this.router = router;
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -469,9 +485,10 @@ HomeComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/home/home.component.html"),
         styles: [__webpack_require__("../../../../../src/app/home/home.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === "function" && _c || Object])
 ], HomeComponent);
 
+var _a, _b, _c;
 //# sourceMappingURL=home.component.js.map
 
 /***/ }),
@@ -587,7 +604,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\n\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t<ul class=\"list-group\">\n\t\t<li class=\"list-group-item\">\n\t\t\tUsuario: {{user.usuario}}\n\t\t</li>\n\t\t<li class=\"list-group-item\">\n\t\t\tEmail: {{user.email}}\n\t\t</li>\n\t</ul>\n</div>"
+module.exports = "<div *ngIf=\"user\">\n\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t<ul class=\"list-group\">\n\t\t<li class=\"list-group-item\">\n\t\t\tUsuario: {{user.usuario}}\n\t\t</li>\n\t\t<li class=\"list-group-item\">\n\t\t\tEmail: {{user.email}}\n\t\t</li>\n\t</ul>\n\t<div class=\"container\" *ngIf=\"stores\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-9\">\n\t\t\t\t<h3 class=\"page-header\">Tiendas</h3>\n\t\t\t</div>\n\t\t\t<div  class=\"col\">\n\t\t\t\t<a class=\"btn btn-info\" routerLink=\"/tienda\">Nueva Tienda</a>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"row\">\n\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t<th>Direccion</th>\n\t\t\t\t\t\t<th>Telefono</th>\n\t\t\t\t\t\t<th>Acciones</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody *ngFor=\"let store of stores\">\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>{{store.name}}</td>\n\t\t\t\t\t\t<td>{{store.address}}</td>\n\t\t\t\t\t\t<td>{{store.telephone}}</td>\n\t\t\t\t\t\t<td><a class=\"btn btn-danger\" (click)=\"deleteStore(store._id)\" routerLink=\"/perfil\">Eliminar</a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -599,6 +616,9 @@ module.exports = "<div *ngIf=\"user\">\n\t<h2 class=\"page-header\">{{user.nombr
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -611,15 +631,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var ProfileComponent = (function () {
-    function ProfileComponent(authService, router) {
+    function ProfileComponent(flashMessagesService, authService, router, http) {
+        this.flashMessagesService = flashMessagesService;
         this.authService = authService;
         this.router = router;
+        this.http = http;
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.authService.getProfile().subscribe(function (profile) {
             _this.user = profile.user;
+            _this.stores = profile.stores;
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+    };
+    ProfileComponent.prototype.deleteStore = function (id) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["Headers"]();
+        headers.append('Content-Type', 'application/json');
+        this.http.delete('/api/tienda/' + id, { headers: headers }).subscribe(function (res) {
+            var response = res.json();
+            if (response.success) {
+                _this.flashMessagesService.show('La tienda se ha eliminado correctamente', { cssClass: 'alert-success', timeout: 3000 });
+            }
+            else {
+                _this.flashMessagesService.show('Ocurrio un problema', { cssClass: 'alert-danger', timeout: 3000 });
+            }
+        }, function (err) {
+            console.log(err);
+        });
+        this.loadProfile();
+        this.router.navigate(['/perfil']);
+    };
+    ProfileComponent.prototype.loadProfile = function () {
+        var _this = this;
+        this.authService.getProfile().subscribe(function (profile) {
+            _this.user = profile.user;
+            _this.stores = profile.stores;
         }, function (err) {
             console.log(err);
             return false;
@@ -633,10 +686,10 @@ ProfileComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/profile/profile.component.html"),
         styles: [__webpack_require__("../../../../../src/app/profile/profile.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"]) === "function" && _d || Object])
 ], ProfileComponent);
 
-var _a, _b;
+var _a, _b, _c, _d;
 //# sourceMappingURL=profile.component.js.map
 
 /***/ }),
@@ -738,6 +791,110 @@ RegistrarComponent = __decorate([
 
 var _a, _b, _c, _d;
 //# sourceMappingURL=registrar.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/stores/stores.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/stores/stores.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<h2 class=\"page-header\">Registrar Tienda</h2>\n<form (submit)=\"onRegisterSubmit()\" class=\"form-horizontal\">\n  <div class=\"form-group\">\n    <label class=\"control-label col-sm-2\" for=\"name\">Nombre:</label>\n    <div class=\"col-sm-10\">\n      <input type=\"text\" [(ngModel)]=\"name\" name=\"name\" class=\"form-control\" id=\"name\" placeholder=\"Ingrese el nombre de la tienda\">\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label class=\"control-label col-sm-2\" for=\"address\">Direccion:</label>\n    <div class=\"col-sm-10\">\n      <input type=\"text\" [(ngModel)]=\"address\" name=\"address\" class=\"form-control\" id=\"address\" placeholder=\"Ingrese la direccion\">\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <label class=\"control-label col-sm-2\" for=\"telephone\">Telefono:</label>\n    <div class=\"col-sm-10\">\n      <input type=\"text\" [(ngModel)]=\"telephone\" name=\"telephone\" class=\"form-control\" id=\"telephone\" placeholder=\"Ingrese el numero de telefono\">\n    </div>\n  </div>\n  <div class=\"form-group\"> \n    <div class=\"col-sm-offset-2 col-sm-10\">\n      <button type=\"submit\" class=\"btn btn-primary\">Registrar</button>\n    </div>\n  </div>\n</form>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/stores/stores.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StoresComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var StoresComponent = (function () {
+    function StoresComponent(flashMessagesService, authService, router, http) {
+        this.flashMessagesService = flashMessagesService;
+        this.authService = authService;
+        this.router = router;
+        this.http = http;
+    }
+    StoresComponent.prototype.ngOnInit = function () {
+    };
+    StoresComponent.prototype.onRegisterSubmit = function () {
+        var _this = this;
+        this.authService.getProfile().subscribe(function (profile) {
+            var store = {
+                name: _this.name,
+                address: _this.address,
+                telephone: _this.telephone,
+                user: profile.user._id
+            };
+            var headers = new __WEBPACK_IMPORTED_MODULE_4__angular_http__["Headers"]();
+            headers.append('Content-Type', 'application/json');
+            _this.http.post('/api/tienda', store, { headers: headers }).subscribe(function (res) {
+                var response = res.json();
+                if (response.success) {
+                    _this.flashMessagesService.show('La tienda se ha registrado correctamente', { cssClass: 'alert-success', timeout: 3000 });
+                    _this.router.navigate(['/perfil']);
+                }
+                else {
+                    _this.flashMessagesService.show('Ocurrio un problema', { cssClass: 'alert-danger', timeout: 3000 });
+                    _this.router.navigate(['/tienda']);
+                }
+            }, function (err) {
+                console.log(err);
+            });
+        }, function (err) {
+            console.log(err);
+            return false;
+        });
+    };
+    return StoresComponent;
+}());
+StoresComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-stores',
+        template: __webpack_require__("../../../../../src/app/stores/stores.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/stores/stores.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"]) === "function" && _d || Object])
+], StoresComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=stores.component.js.map
 
 /***/ }),
 

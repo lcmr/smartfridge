@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { FlashMessagesService} from 'angular2-flash-messages';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'home',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+		private flashMessagesService: FlashMessagesService,
+		private authService: AuthService,
+		private router: Router
+  	) { }
 
   ngOnInit() {
   }

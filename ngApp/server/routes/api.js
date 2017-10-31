@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Usuario = require('../models/users');
+const Tienda = require('../models/stores');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -10,7 +11,7 @@ const TokenGenerator = require('../config/tokengenerator');
 
 
 
-//Administracion de Usuarios
+//------------------------------------------------------------------Administracion de Usuarios
 
 //-- Crear usuario
 router.post('/usuario',function(req,res){
@@ -80,7 +81,15 @@ router.post('/autenticar',function(req, res, next) {
 
 //perfil
 router.get('/perfil', passport.authenticate('jwt',{session: false}), (req, res, next) => {
-    res.json({user: req.user});
+    Tienda.getStoresByUser(req.user._id, (err,store) => {
+       if(err) throw err;
+       
+       if(!store){
+        return res.json({user: req.user});
+       } else{
+        return res.json({user: req.user, stores: store});
+       }
+    });
 });
 
 router.get('/usuarios', function(req, res){
@@ -141,5 +150,45 @@ router.delete('/usuario/:id',function(req, res) {
       }
    });
 });
+
+
+//------------------------------------------------Tiendas------------------------------------------------
+
+//Crear tienda
+
+router.post('/tienda',function (req, res) {
+    console.log('Inserting Store');
+    
+    var newStore = new Tienda();
+    newStore.name = req.body.name;
+    newStore.address = req.body.address;
+    newStore.telephone = req.body.telephone;
+    newStore.user = req.body.user;
+
+    Tienda.addStore(newStore, (err, store) => {
+        if(err){
+            console.log('Error saving store');
+            res.json({success: false, msg: 'Error al registrar la tienda'});
+        }else{
+            res.json({success: true, msg: 'Tienda registrada exitosamente'});
+        }
+    });
+
+});
+
+
+router.delete('/tienda/:id',function(req, res) {
+   console.log('Deleting Store...');
+
+   Tienda.deleteStore(req.params.id, (err, store) => {
+        if(err){
+            console.log('Error saving store');
+            res.json({success: false, msg: 'Error al eliminar la tienda'});
+        }else{
+            res.json({success: true, msg: 'Tienda eliminada exitosamente'});
+        }
+   });
+});
+
 
 module.exports = router;

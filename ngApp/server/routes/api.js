@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Usuario = require('../models/users');
 const Tienda = require('../models/stores');
+const Refri = require('../models/fridges');
+const Sale = require('../models/sales');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -84,11 +86,19 @@ router.get('/perfil', passport.authenticate('jwt',{session: false}), (req, res, 
     Tienda.getStoresByUser(req.user._id, (err,store) => {
        if(err) throw err;
        
-       if(!store){
-        return res.json({user: req.user});
-       } else{
-        return res.json({user: req.user, stores: store});
-       }
+        if(!store){
+            return res.json({user: req.user});
+        } else{
+            Refri.findFridgesByArray(req.user.fridges, (err,fridges)=>{
+                if(err) throw err;
+
+                if(!fridges){
+                    return res.json({user: req.user, stores: store, fridges: []});
+                }else{
+                    return res.json({user: req.user, stores: store, fridges: fridges});
+                }
+            });
+        }
     });
 });
 
@@ -190,5 +200,104 @@ router.delete('/tienda/:id',function(req, res) {
    });
 });
 
+
+//--------------------------------------Refrigeradoras-----------------------------------------------
+
+
+router.post('/refri',function (req, res) {
+    console.log('Inserting Fridge');
+    
+    var newFridge = new Refri();
+    newFridge.name = req.body.name;
+    newFridge.columns = req.body.columns;
+    newFridge.rows = req.body.rows;
+    newFridge.trays = req.body.trays;
+
+    Tienda.addStore(newFridge, (err, store) => {
+        if(err){
+            console.log('Error saving fridge');
+            res.json({success: false, msg: 'Error al registrar la Refrigeradora'});
+        }else{
+            res.json({success: true, msg: 'Refrigeradora registrada exitosamente'});
+        }
+    });
+
+});
+
+
+router.put('/refri/asignar/:id',function(req,res){
+    console.log('Asign fridge');
+    Usuario.findByIdAndUpdate(req.params.id,
+        { $addToSet: {fridges: [req.body.fridge]} },
+        { new: true },
+        (err, updatedUser) => {
+            if(err){
+                console.log('Error saving fridge');
+                res.json({success: false, msg: 'Error al registrar la Refrigeradora'});
+            }else{
+                res.json({success: true, msg: 'Refrigeradora registrada exitosamente'});
+            }
+        }
+    );
+});
+
+
+router.put('/refri/actualizar/:id', function (req, res) {
+    console.log('Updating array');
+    Refri.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: {array : req.body.array}
+        },
+        (err, updatedFridge) => {
+            if(err){
+                console.log('Error updating fridge');
+                res.json({success: false, msg: 'Error al actualizar la Refrigeradora'});
+            }else{
+                res.json({success: true, msg: 'Refrigeradora actualizada exitosamente'});
+            }
+        }
+    );
+});
+
+//---------------------------------------------------------Sales------------------------------------------------------------------
+
+router.post('/venta',function (req, res) {
+    console.log('Inserting sale');
+
+    Refri.getStore(req.body.fridge, (err, fridge) => {
+        if(err){
+            console.log('Fridge not found');
+            res.json({success: false, msg: 'Error la Refrigeradora no encontrada.'});
+        }else{
+            //console.log(fridge);
+            if(fridge != null){
+                if (fridge.store) {
+                    var newSale = new Sale();
+                    newSale.fridge = req.body.fridge;
+                    newSale.quantity = req.body.quantity;
+                    newSale.store = fridge.store;
+                    //console.log(newSale);
+                    Sale.addSale(newSale,(err,sale)=>{
+                        if(err){
+                            console.log('Error saving sale');
+                            res.json({success: false, msg: 'Error al registrar la venta'});
+                        }else{
+                           console.log('Sale added');
+                            res.json({success: true, msg: 'Venta registrada exitosamente'});
+                        }
+                    });
+                }else{
+                    console.log('Fridge not assigned yet');
+                    res.json({success: false, msg: 'Error la Refrigeradora no ha sido asignada.'});
+                }
+            }else{
+                console.log('Fridge not found');
+                res.json({success: false, msg: 'Error la Refrigeradora no encontrada.'});
+            }
+        }
+    });
+
+});
 
 module.exports = router;

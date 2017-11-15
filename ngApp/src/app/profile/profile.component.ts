@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   	this.authService.getProfile().subscribe(profile => {
   		this.user = profile.user;
       this.stores = profile.stores;
+      console.log(profile);
   	},
   	err => {
   		console.log(err);

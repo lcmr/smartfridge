@@ -604,7 +604,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\n\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t<ul class=\"list-group\">\n\t\t<li class=\"list-group-item\">\n\t\t\tUsuario: {{user.usuario}}\n\t\t</li>\n\t\t<li class=\"list-group-item\">\n\t\t\tEmail: {{user.email}}\n\t\t</li>\n\t</ul>\n\t<div class=\"container\" *ngIf=\"stores\">\n\t\t<div class=\"row\">\n\t\t\t<div class=\"col-9\">\n\t\t\t\t<h3 class=\"page-header\">Tiendas</h3>\n\t\t\t</div>\n\t\t\t<div  class=\"col\">\n\t\t\t\t<a class=\"btn btn-info\" routerLink=\"/tienda\">Nueva Tienda</a>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"row\">\n\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t<thead>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t<th>Direccion</th>\n\t\t\t\t\t\t<th>Telefono</th>\n\t\t\t\t\t\t<th>Acciones</th>\n\t\t\t\t\t</tr>\n\t\t\t\t</thead>\n\t\t\t\t<tbody *ngFor=\"let store of stores\">\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td>{{store.name}}</td>\n\t\t\t\t\t\t<td>{{store.address}}</td>\n\t\t\t\t\t\t<td>{{store.telephone}}</td>\n\t\t\t\t\t\t<td><a class=\"btn btn-danger\" (click)=\"deleteStore(store._id)\" routerLink=\"/perfil\">Eliminar</a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t</div>\n\t</div>\n</div>"
+module.exports = "<div *ngIf=\"user\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-9\">\n\t\t\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tUsuario: {{user.usuario}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tEmail: {{user.email}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"container\" *ngIf=\"stores\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">\n\t\t\t\t\t\t<h3 class=\"page-header\">Tiendas <a class=\"btn btn-info\" routerLink=\"/tienda\">Nueva Tienda</a></h3>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t\t\t<th>Direccion</th>\n\t\t\t\t\t\t\t\t<th>Telefono</th>\n\t\t\t\t\t\t\t\t<th>Acciones</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody *ngFor=\"let store of stores\">\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>{{store.name}}</td>\n\t\t\t\t\t\t\t\t<td>{{store.address}}</td>\n\t\t\t\t\t\t\t\t<td>{{store.telephone}}</td>\n\t\t\t\t\t\t\t\t<td><a class=\"btn btn-danger\" (click)=\"deleteStore(store._id)\" routerLink=\"/perfil\">Eliminar</a></td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-3\">\n\t\t\t<h3 class=\"page-header\">Refrigeradoras</h3>\n\t\t</div>\n\t</div>\n\n</div>"
 
 /***/ }),
 
@@ -645,6 +645,7 @@ var ProfileComponent = (function () {
         this.authService.getProfile().subscribe(function (profile) {
             _this.user = profile.user;
             _this.stores = profile.stores;
+            console.log(profile);
         }, function (err) {
             console.log(err);
             return false;

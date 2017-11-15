@@ -22,6 +22,11 @@ const userSchema = new Schema({
     },
     nombre: { 
         type: String 
+    },
+    fridges: { 
+        type: [Schema.ObjectId], 
+        ref: 'fridges',
+        default : []
     }
 });
 

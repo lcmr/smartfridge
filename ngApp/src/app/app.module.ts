@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { StoresComponent } from './stores/stores.component';
+import { FridgeComponent } from './fridge/fridge.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { StoresComponent } from './stores/stores.component';
     LoginComponent,
     DashboardComponent,
     ProfileComponent,
-    StoresComponent
+    StoresComponent,
+    FridgeComponent
   ],
   imports: [
     BrowserModule,

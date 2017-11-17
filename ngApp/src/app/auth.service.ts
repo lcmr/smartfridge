@@ -34,6 +34,14 @@ export class AuthService {
       .map(res => res.json());  
   }
 
+  getFridge(id){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.get('/api/refri/'+id,{headers: headers})
+      .map(res => res.json());  
+  }
+
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;

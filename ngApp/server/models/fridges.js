@@ -51,7 +51,7 @@ module.exports.deleteFridge = function (id, callback) {
 }
 
 module.exports.findFridgesByArray = function(ids,callback) {
-    Fridge.findById({ $all : ids},callback);
+    Fridge.find({ _id : {$in: ids}},callback);
 }
 
 module.exports.getStore = function(id,callback) {

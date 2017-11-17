@@ -41,6 +41,9 @@
 		</div>
 		<div class="col-sm-3">
 			<h3 class="page-header">Refrigeradoras</h3>
+			<ul class="list-group" *ngFor="let fridge of fridges">
+				<a (click)="goToFridgeDetails(fridge._id)" ><li class="list-group-item">{{fridge.name}}</li></a>
+			</ul>
 		</div>
 	</div>
 

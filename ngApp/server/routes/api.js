@@ -225,6 +225,18 @@ router.post('/refri',function (req, res) {
 });
 
 
+router.get('/refri/:id', function(req, res){
+    console.log('Get Fridge by id');
+    Refri.findById(req.params.id)
+    .exec(function(err,fridge){
+        if(err){
+            console.log('Error al recibir informacion');
+        }else{
+            res.json(fridge);
+        }
+    });
+});
+
 router.put('/refri/asignar/:id',function(req,res){
     console.log('Asign fridge');
     Usuario.findByIdAndUpdate(req.params.id,

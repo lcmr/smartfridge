@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FlashMessagesService} from 'angular2-flash-messages';
 import { Http, Headers} from '@angular/http';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,6 +13,7 @@ import { Http, Headers} from '@angular/http';
 export class ProfileComponent implements OnInit {
 	user: Object;
   stores: Object;
+  fridges: Object;
   constructor(
     private flashMessagesService: FlashMessagesService,
   	private authService: AuthService,
@@ -23,7 +25,7 @@ export class ProfileComponent implements OnInit {
   	this.authService.getProfile().subscribe(profile => {
   		this.user = profile.user;
       this.stores = profile.stores;
-      console.log(profile);
+      this.fridges = profile.fridges;
   	},
   	err => {
   		console.log(err);
@@ -50,6 +52,10 @@ export class ProfileComponent implements OnInit {
     );
     this.loadProfile();
     this.router.navigate(['/perfil']); 
+  }
+
+  goToFridgeDetails(id) {
+    this.router.navigate(['/refri', id]);
   }
 
   private loadProfile(){

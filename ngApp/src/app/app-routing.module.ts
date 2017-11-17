@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { StoresComponent } from './stores/stores.component';
+import { FridgeComponent } from './fridge/fridge.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch:'full'},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'perfil', component: ProfileComponent, canActivate:[AuthGuard] },
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
-  {path: 'tienda', component: StoresComponent, canActivate:[AuthGuard]}
+  {path: 'tienda', component: StoresComponent, canActivate:[AuthGuard]},
+  {path: 'refri/:id', component: FridgeComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

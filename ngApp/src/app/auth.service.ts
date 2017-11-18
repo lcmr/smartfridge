@@ -52,6 +52,14 @@ export class AuthService {
       .map(res => res.json());  
   }
 
+  getTotal(id){
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Content-Type','application/json');
+    return this.http.get('/api/ventas/total/'+id,{headers: headers})
+      .map(res => res.json());  
+  }
+
   loadToken(){
     const token = localStorage.getItem('id_token');
     this.authToken = token;

@@ -333,4 +333,44 @@ router.get('/ventas/:id',function(req, res) {
     });
 });
 
+
+router.get('/ventas/total/:id',function(req, res) {
+    console.log('Get sales by store');
+
+
+    Sale.aggregate([
+            { $match : { store : mongoose.Types.ObjectId(req.params.id) } },
+            { $group : {
+                    _id : null,
+                    total : { $sum : '$quantity' },
+                    cantidad : { $sum : 1 }
+                }
+            },
+            { $project : { 'id' : 1, 'total' : 1, 'cantidad' : 1} }
+    ]).exec(function(err,sales) {
+        if(err){
+            console.log('Error al recibir informacion');
+            res.json({success: false, msg: 'Error al obtener la informacion.'});
+        }else{
+            Sale.aggregate([
+                { $match : { store : mongoose.Types.ObjectId(req.params.id) } },
+                { $lookup : { from: 'fridges', localField : 'fridge', foreignField : '_id', as: 'fridge' } },
+                { $project : { 'id' : 1, 'quantity': 1, 'datetime' : 1 , 'fridge._id' : 1, 'fridge.name' : 1  } },
+                { $sort : { datetime : -1 } }
+            ]).exec(function(err,sales1) {
+                if(err){
+                    console.log('Error al recibir informacion');
+                    res.json({success: false, msg: 'Error al obtener la informacion.'});
+                }else{
+                    res.json({total : sales, ventas : sales1});
+                }
+            });
+
+
+
+            //res.json(sales);
+        }
+    });
+});
+
 module.exports = router;

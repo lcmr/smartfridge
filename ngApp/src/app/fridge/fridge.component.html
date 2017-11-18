@@ -21,13 +21,16 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th *ngFor="let fila of fridge.array; let i = index" [attr.data-index]="i">Columna: {{i}}</th>
+							<th *ngFor="let columna of createRange(fridge.columns)">Columna: {{columna}}</th>
 						</tr>
 					</thead>
 					<tbody >
 						<tr *ngFor="let fila of fridge.array let i = index" [attr.data-index]="i" >
-							<td>Fila {{i}}</td>
-							<td *ngFor="let columna of fila" class="status{{columna}}">{{columna}}</td>
+							<td>Fila {{i+1}}</td>
+							<td *ngFor="let columna of fila" class="status{{columna}}">
+								<span *ngIf="columna==0" class="glyphicon glyphicon-ok-circle glyphicon-align-center"></span>
+								<span *ngIf="columna==1" class="glyphicon glyphicon-remove-circle glyphicon-align-center"></span>
+							</td>
 						</tr>
 					</tbody>
 				</table>

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SalesComponent implements OnInit {
 	store: Object;
+	total: Object;
 	private sub: any;
   	constructor(
   		private flashMessagesService: FlashMessagesService,
@@ -23,14 +24,16 @@ export class SalesComponent implements OnInit {
 
 	ngOnInit() {
 		this.sub = this.route.params.subscribe(params => {
-     		this.authService.getSales(params['id']).subscribe(profile => {
-      			this.store = profile;
+     		this.authService.getTotal(params['id']).subscribe(profile => {
+      			this.store = profile.ventas;
+      			this.total = profile.total;
 	  		},
 		  	err => {
 		  		console.log(err);
 		  		return false;
 		  	});
 	    });
+
 	}
 
 	parseDate(date){

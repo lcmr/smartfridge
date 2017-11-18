@@ -310,6 +310,13 @@ var AuthService = (function () {
         return this.http.get('/api/ventas/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    AuthService.prototype.getTotal = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('/api/ventas/total/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     AuthService.prototype.loadToken = function () {
         var token = localStorage.getItem('id_token');
         this.authToken = token;
@@ -409,7 +416,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".status1{\r\n\tbackground-color: green;\r\n}\r\n\r\n.status0{\r\n\tbackground-color:red;\r\n}", ""]);
+exports.push([module.i, ".status0{\r\n\tbackground-color: green;\r\n}\r\n\r\n.status1{\r\n\tbackground-color:red;\r\n}", ""]);
 
 // exports
 
@@ -422,7 +429,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/fridge/fridge.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"fridge\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">{{fridge.name}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tColumnas: {{fridge.columns}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tFilas: {{fridge.rows}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tBandejas: {{fridge.trays}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\" *ngIf=\"fridge.temperature\">\n\t\t\t\t\tTemperatura: {{fridge.temperature}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div *ngIf=\"fridge.array\" class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t<th *ngFor=\"let fila of fridge.array; let i = index\" [attr.data-index]=\"i\">Columna: {{i}}</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let fila of fridge.array let i = index\" [attr.data-index]=\"i\" >\n\t\t\t\t\t\t\t<td>Fila {{i}}</td>\n\t\t\t\t\t\t\t<td *ngFor=\"let columna of fila\" class=\"status{{columna}}\">{{columna}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
+module.exports = "<div *ngIf=\"fridge\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">{{fridge.name}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tColumnas: {{fridge.columns}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tFilas: {{fridge.rows}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tBandejas: {{fridge.trays}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\" *ngIf=\"fridge.temperature\">\n\t\t\t\t\tTemperatura: {{fridge.temperature}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div *ngIf=\"fridge.array\" class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t<th *ngFor=\"let columna of createRange(fridge.columns)\">Columna: {{columna}}</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let fila of fridge.array let i = index\" [attr.data-index]=\"i\" >\n\t\t\t\t\t\t\t<td>Fila {{i+1}}</td>\n\t\t\t\t\t\t\t<td *ngFor=\"let columna of fila\" class=\"status{{columna}}\">\n\t\t\t\t\t\t\t\t<span *ngIf=\"columna==0\" class=\"glyphicon glyphicon-ok-circle glyphicon-align-center\"></span>\n\t\t\t\t\t\t\t\t<span *ngIf=\"columna==1\" class=\"glyphicon glyphicon-remove-circle glyphicon-align-center\"></span>\n\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -471,6 +478,13 @@ var FridgeComponent = (function () {
                 return false;
             });
         });
+    };
+    FridgeComponent.prototype.createRange = function (number) {
+        var items = [];
+        for (var i = 1; i <= number; i++) {
+            items.push(i);
+        }
+        return items;
     };
     return FridgeComponent;
 }());
@@ -935,7 +949,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/sales/sales.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"store\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">Ventas</h2>\n\n\t\t\t<div class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th>Cantidad</th>\n\t\t\t\t\t\t\t<th>Refrigeradora</th>\n\t\t\t\t\t\t\t<th>Fecha y Hora</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let venta of store\" >\n\t\t\t\t\t\t\t<td>{{venta.quantity}}</td>\n\t\t\t\t\t\t\t<td>{{venta.fridge[0].name}}</td>\n\t\t\t\t\t\t\t<td>{{parseDate(venta.datetime)}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
+module.exports = "<div *ngIf=\"store\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">Ventas</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tTotal de Ventas : {{total[0].cantidad}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tAguas Vendidas : {{total[0].total}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th>Cantidad</th>\n\t\t\t\t\t\t\t<th>Refrigeradora</th>\n\t\t\t\t\t\t\t<th>Fecha y Hora</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let venta of store\" >\n\t\t\t\t\t\t\t<td>{{venta.quantity}}</td>\n\t\t\t\t\t\t\t<td>{{venta.fridge[0].name}}</td>\n\t\t\t\t\t\t\t<td>{{parseDate(venta.datetime)}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -976,8 +990,9 @@ var SalesComponent = (function () {
     SalesComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.sub = this.route.params.subscribe(function (params) {
-            _this.authService.getSales(params['id']).subscribe(function (profile) {
-                _this.store = profile;
+            _this.authService.getTotal(params['id']).subscribe(function (profile) {
+                _this.store = profile.ventas;
+                _this.total = profile.total;
             }, function (err) {
                 console.log(err);
                 return false;

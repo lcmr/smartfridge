@@ -29,7 +29,7 @@
 						</thead>
 						<tbody *ngFor="let store of stores">
 							<tr>
-								<td>{{store.name}}</td>
+								<a  (click)="goToStoreDetails(store._id)" ><td>{{store.name}}</td></a>
 								<td>{{store.address}}</td>
 								<td>{{store.telephone}}</td>
 								<td><a class="btn btn-danger" (click)="deleteStore(store._id)" routerLink="/perfil">Eliminar</a></td>

@@ -19,6 +19,9 @@ const firdgeSchema = new Schema({
     rows: { 
         type : Number
     },
+    temperature: { 
+        type : String
+    },
     array : {
         type: [[Number]],
         default : []

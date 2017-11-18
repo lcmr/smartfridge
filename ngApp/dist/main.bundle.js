@@ -33,12 +33,14 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__ = __webpack_require__("../../../../../src/app/guards/auth.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__stores_stores_component__ = __webpack_require__("../../../../../src/app/stores/stores.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__fridge_fridge_component__ = __webpack_require__("../../../../../src/app/fridge/fridge.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__sales_sales_component__ = __webpack_require__("../../../../../src/app/sales/sales.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -59,7 +61,8 @@ var routes = [
     { path: 'perfil', component: __WEBPACK_IMPORTED_MODULE_7__profile_profile_component__["a" /* ProfileComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
     { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_6__dashboard_dashboard_component__["a" /* DashboardComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
     { path: 'tienda', component: __WEBPACK_IMPORTED_MODULE_9__stores_stores_component__["a" /* StoresComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
-    { path: 'refri/:id', component: __WEBPACK_IMPORTED_MODULE_10__fridge_fridge_component__["a" /* FridgeComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] }
+    { path: 'refri/:id', component: __WEBPACK_IMPORTED_MODULE_10__fridge_fridge_component__["a" /* FridgeComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] },
+    { path: 'ventas/:id', component: __WEBPACK_IMPORTED_MODULE_11__sales_sales_component__["a" /* SalesComponent */], canActivate: [__WEBPACK_IMPORTED_MODULE_8__guards_auth_guard__["a" /* AuthGuard */]] }
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -180,12 +183,14 @@ var _a, _b, _c;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__guards_auth_guard__ = __webpack_require__("../../../../../src/app/guards/auth.guard.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__stores_stores_component__ = __webpack_require__("../../../../../src/app/stores/stores.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__fridge_fridge_component__ = __webpack_require__("../../../../../src/app/fridge/fridge.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__sales_sales_component__ = __webpack_require__("../../../../../src/app/sales/sales.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -224,7 +229,8 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_15__dashboard_dashboard_component__["a" /* DashboardComponent */],
             __WEBPACK_IMPORTED_MODULE_16__profile_profile_component__["a" /* ProfileComponent */],
             __WEBPACK_IMPORTED_MODULE_18__stores_stores_component__["a" /* StoresComponent */],
-            __WEBPACK_IMPORTED_MODULE_19__fridge_fridge_component__["a" /* FridgeComponent */]
+            __WEBPACK_IMPORTED_MODULE_19__fridge_fridge_component__["a" /* FridgeComponent */],
+            __WEBPACK_IMPORTED_MODULE_20__sales_sales_component__["a" /* SalesComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -295,6 +301,13 @@ var AuthService = (function () {
         this.loadToken();
         headers.append('Content-Type', 'application/json');
         return this.http.get('/api/refri/' + id, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.getSales = function (id) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
+        this.loadToken();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get('/api/ventas/' + id, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.loadToken = function () {
@@ -409,7 +422,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/fridge/fridge.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"fridge\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">{{fridge.name}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tColumnas: {{fridge.columns}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tFilas: {{fridge.rows}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tBandejas: {{fridge.trays}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div *ngIf=\"fridge.array\" class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t<th *ngFor=\"let fila of fridge.array; let i = index\" [attr.data-index]=\"i\">Columna: {{i}}</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let fila of fridge.array let i = index\" [attr.data-index]=\"i\" >\n\t\t\t\t\t\t\t<td>Fila {{i}}</td>\n\t\t\t\t\t\t\t<td *ngFor=\"let columna of fila\" class=\"status{{columna}}\">{{columna}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
+module.exports = "<div *ngIf=\"fridge\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">{{fridge.name}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tColumnas: {{fridge.columns}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tFilas: {{fridge.rows}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tBandejas: {{fridge.trays}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\" *ngIf=\"fridge.temperature\">\n\t\t\t\t\tTemperatura: {{fridge.temperature}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div *ngIf=\"fridge.array\" class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th></th>\n\t\t\t\t\t\t\t<th *ngFor=\"let fila of fridge.array; let i = index\" [attr.data-index]=\"i\">Columna: {{i}}</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let fila of fridge.array let i = index\" [attr.data-index]=\"i\" >\n\t\t\t\t\t\t\t<td>Fila {{i}}</td>\n\t\t\t\t\t\t\t<td *ngFor=\"let columna of fila\" class=\"status{{columna}}\">{{columna}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
 
 /***/ }),
 
@@ -704,7 +717,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/profile/profile.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"user\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-9\">\n\t\t\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tUsuario: {{user.usuario}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tEmail: {{user.email}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"container\" *ngIf=\"stores\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">\n\t\t\t\t\t\t<h3 class=\"page-header\">Tiendas <a class=\"btn btn-info\" routerLink=\"/tienda\">Nueva Tienda</a></h3>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t\t\t<th>Direccion</th>\n\t\t\t\t\t\t\t\t<th>Telefono</th>\n\t\t\t\t\t\t\t\t<th>Acciones</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody *ngFor=\"let store of stores\">\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<td>{{store.name}}</td>\n\t\t\t\t\t\t\t\t<td>{{store.address}}</td>\n\t\t\t\t\t\t\t\t<td>{{store.telephone}}</td>\n\t\t\t\t\t\t\t\t<td><a class=\"btn btn-danger\" (click)=\"deleteStore(store._id)\" routerLink=\"/perfil\">Eliminar</a></td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-3\">\n\t\t\t<h3 class=\"page-header\">Refrigeradoras</h3>\n\t\t\t<ul class=\"list-group\" *ngFor=\"let fridge of fridges\">\n\t\t\t\t<a (click)=\"goToFridgeDetails(fridge._id)\" ><li class=\"list-group-item\">{{fridge.name}}</li></a>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\n</div>"
+module.exports = "<div *ngIf=\"user\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-9\">\n\t\t\t<h2 class=\"page-header\">{{user.nombre}}</h2>\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tUsuario: {{user.usuario}}\n\t\t\t\t</li>\n\t\t\t\t<li class=\"list-group-item\">\n\t\t\t\t\tEmail: {{user.email}}\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t\t<div class=\"container\" *ngIf=\"stores\">\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col\">\n\t\t\t\t\t\t<h3 class=\"page-header\">Tiendas <a class=\"btn btn-info\" routerLink=\"/tienda\">Nueva Tienda</a></h3>\n\t\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>Nombre</th>\n\t\t\t\t\t\t\t\t<th>Direccion</th>\n\t\t\t\t\t\t\t\t<th>Telefono</th>\n\t\t\t\t\t\t\t\t<th>Acciones</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody *ngFor=\"let store of stores\">\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<a  (click)=\"goToStoreDetails(store._id)\" ><td>{{store.name}}</td></a>\n\t\t\t\t\t\t\t\t<td>{{store.address}}</td>\n\t\t\t\t\t\t\t\t<td>{{store.telephone}}</td>\n\t\t\t\t\t\t\t\t<td><a class=\"btn btn-danger\" (click)=\"deleteStore(store._id)\" routerLink=\"/perfil\">Eliminar</a></td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-sm-3\">\n\t\t\t<h3 class=\"page-header\">Refrigeradoras</h3>\n\t\t\t<ul class=\"list-group\" *ngFor=\"let fridge of fridges\">\n\t\t\t\t<a (click)=\"goToFridgeDetails(fridge._id)\" ><li class=\"list-group-item\">{{fridge.name}}</li></a>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\n</div>"
 
 /***/ }),
 
@@ -771,6 +784,9 @@ var ProfileComponent = (function () {
     };
     ProfileComponent.prototype.goToFridgeDetails = function (id) {
         this.router.navigate(['/refri', id]);
+    };
+    ProfileComponent.prototype.goToStoreDetails = function (id) {
+        this.router.navigate(['/ventas', id]);
     };
     ProfileComponent.prototype.loadProfile = function () {
         var _this = this;
@@ -895,6 +911,96 @@ RegistrarComponent = __decorate([
 
 var _a, _b, _c, _d;
 //# sourceMappingURL=registrar.component.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/sales/sales.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/sales/sales.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"store\">\n\t<div class=\"row\">\n\t\t<div class=\"col-sm-12\">\n\t\t\t<h2 class=\"page-header\">Ventas</h2>\n\n\t\t\t<div class=\"row\">\n\t\t\t\t<table  class=\"table table-striped table-hover \">\n\t\t\t\t\t<thead>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<th>Cantidad</th>\n\t\t\t\t\t\t\t<th>Refrigeradora</th>\n\t\t\t\t\t\t\t<th>Fecha y Hora</th>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody >\n\t\t\t\t\t\t<tr *ngFor=\"let venta of store\" >\n\t\t\t\t\t\t\t<td>{{venta.quantity}}</td>\n\t\t\t\t\t\t\t<td>{{venta.fridge[0].name}}</td>\n\t\t\t\t\t\t\t<td>{{parseDate(venta.datetime)}}</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/sales/sales.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SalesComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__("../../../../../src/app/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("../../../../angular2-flash-messages/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var SalesComponent = (function () {
+    function SalesComponent(flashMessagesService, authService, router, http, route) {
+        this.flashMessagesService = flashMessagesService;
+        this.authService = authService;
+        this.router = router;
+        this.http = http;
+        this.route = route;
+    }
+    SalesComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.sub = this.route.params.subscribe(function (params) {
+            _this.authService.getSales(params['id']).subscribe(function (profile) {
+                _this.store = profile;
+            }, function (err) {
+                console.log(err);
+                return false;
+            });
+        });
+    };
+    SalesComponent.prototype.parseDate = function (date) {
+        var fecha = new Date(date);
+        return fecha.toLocaleString('en-US');
+    };
+    return SalesComponent;
+}());
+SalesComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'app-sales',
+        template: __webpack_require__("../../../../../src/app/sales/sales.component.html"),
+        styles: [__webpack_require__("../../../../../src/app/sales/sales.component.css")]
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_service__["a" /* AuthService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__angular_http__["Http"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivatedRoute */]) === "function" && _e || Object])
+], SalesComponent);
+
+var _a, _b, _c, _d, _e;
+//# sourceMappingURL=sales.component.js.map
 
 /***/ }),
 

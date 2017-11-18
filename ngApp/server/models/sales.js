@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
 
-
 const Schema = mongoose.Schema;
 
 const salesSchema = new Schema({

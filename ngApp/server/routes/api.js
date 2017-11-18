@@ -12,7 +12,6 @@ const config = require('../config/database');
 const TokenGenerator = require('../config/tokengenerator');
 
 
-
 //------------------------------------------------------------------Administracion de Usuarios
 
 //-- Crear usuario
@@ -254,12 +253,15 @@ router.put('/refri/asignar/:id',function(req,res){
 });
 
 
-router.put('/refri/actualizar/:id', function (req, res) {
-    console.log('Updating array');
+router.post('/refri/actualizar/:id', function (req, res) {
+    console.log('Updating fridge');
     Refri.findByIdAndUpdate(
         req.params.id,
         {
-            $set: {array : req.body.array}
+            $set: {
+                array : req.body.array,
+                temperature : req.body.temperatura
+            }
         },
         (err, updatedFridge) => {
             if(err){
@@ -310,6 +312,25 @@ router.post('/venta',function (req, res) {
         }
     });
 
+});
+
+router.get('/ventas/:id',function(req, res) {
+    console.log('Get sales by store');
+
+
+    Sale.aggregate([
+            { $match : { store : mongoose.Types.ObjectId(req.params.id) } },
+            { $lookup : { from: 'fridges', localField : 'fridge', foreignField : '_id', as: 'fridge' } },
+            { $project : { 'id' : 1, 'quantity': 1, 'datetime' : 1 , 'fridge._id' : 1, 'fridge.name' : 1  } },
+            { $sort : { datetime : -1 } }
+    ]).exec(function(err,sales) {
+        if(err){
+            console.log('Error al recibir informacion');
+            res.json({success: false, msg: 'Error al obtener la informacion.'});
+        }else{
+            res.json(sales);
+        }
+    });
 });
 
 module.exports = router;

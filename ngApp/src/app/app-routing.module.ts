@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { StoresComponent } from './stores/stores.component';
 import { FridgeComponent } from './fridge/fridge.component';
+import { SalesComponent } from './sales/sales.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch:'full'},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'perfil', component: ProfileComponent, canActivate:[AuthGuard] },
   {path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'tienda', component: StoresComponent, canActivate:[AuthGuard]},
-  {path: 'refri/:id', component: FridgeComponent, canActivate:[AuthGuard]}
+  {path: 'refri/:id', component: FridgeComponent, canActivate:[AuthGuard]},
+  {path: 'ventas/:id', component: SalesComponent, canActivate:[AuthGuard]}
 ];
 
 @NgModule({

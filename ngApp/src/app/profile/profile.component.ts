@@ -58,6 +58,10 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/refri', id]);
   }
 
+  goToStoreDetails(id){
+    this.router.navigate(['/ventas',id]);
+  }
+
   private loadProfile(){
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;

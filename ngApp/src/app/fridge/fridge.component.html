@@ -12,6 +12,9 @@
 				<li class="list-group-item">
 					Bandejas: {{fridge.trays}}
 				</li>
+				<li class="list-group-item" *ngIf="fridge.temperature">
+					Temperatura: {{fridge.temperature}}
+				</li>
 			</ul>
 			<div *ngIf="fridge.array" class="row">
 				<table  class="table table-striped table-hover ">

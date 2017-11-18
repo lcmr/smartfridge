@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { StoresComponent } from './stores/stores.component';
 import { FridgeComponent } from './fridge/fridge.component';
+import { SalesComponent } from './sales/sales.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { FridgeComponent } from './fridge/fridge.component';
     DashboardComponent,
     ProfileComponent,
     StoresComponent,
-    FridgeComponent
+    FridgeComponent,
+    SalesComponent
   ],
   imports: [
     BrowserModule,
